@@ -13,16 +13,16 @@ namespace Restaurants.API.Contollers;
 public class RestaurantsController(IMediator _mediator) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<RestaurantDto?>>> GetAll()
+    public async Task<ActionResult<IEnumerable<RestaurantDto>>> GetAll()
     {
         var restaurants = await _mediator.Send(new GetAllRestaurantsQuery());
         return Ok(restaurants);
     }
     [HttpGet("{id:int}")]
-    public async Task<ActionResult<RestaurantDto?>> GetById([FromRoute] int id)
+    public async Task<ActionResult<RestaurantDto>> GetById([FromRoute] int id)
     {
         var restaurant = await _mediator.Send(new GetRestaurantByIdQuery(id));
-        return restaurant != null ? Ok(restaurant) : NotFound();
+        return Ok(restaurant);
     }
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
@@ -37,8 +37,8 @@ public class RestaurantsController(IMediator _mediator) : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
-        var isDeleted = await _mediator.Send(new DeleteRestaurantCommand(id));
-        return isDeleted ? NoContent() : NotFound();
+        await _mediator.Send(new DeleteRestaurantCommand(id));
+        return NoContent();
     }
     [HttpPut("{id:int}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -46,9 +46,9 @@ public class RestaurantsController(IMediator _mediator) : ControllerBase
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateRestaurantCommand command)
     {
         command.Id = id;
-        var isUpdated = await _mediator.Send(command);
+        await _mediator.Send(command);
 
-        return isUpdated ? NoContent() : NotFound();
+        return NoContent();
 
     }
 

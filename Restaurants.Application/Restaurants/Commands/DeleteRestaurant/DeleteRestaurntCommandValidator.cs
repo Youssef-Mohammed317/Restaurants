@@ -5,11 +5,8 @@ namespace Restaurants.Application.Restaurants.Commands.DeleteRestaurant;
 
 public class DeleteRestaurntCommandValidator : AbstractValidator<DeleteRestaurantCommand>
 {
-    private readonly IUnitOfWork _unitOfWork;
-
-    public DeleteRestaurntCommandValidator(IUnitOfWork unitOfWork)
+    public DeleteRestaurntCommandValidator()
     {
-        _unitOfWork = unitOfWork;
 
         RuleFor(x => x.Id).Cascade(CascadeMode.Stop)
             .GreaterThan(0).WithMessage("Invalid restaurant id.");
