@@ -43,6 +43,19 @@ public class ErrorHandlingMiddleware(ILogger<ErrorHandlingMiddleware> _logger) :
             await context.Response.WriteAsJsonAsync(ex.Message);
             _logger.LogWarning(ex, ex.Message);
         }
+        catch (IdentityOperationException ex)
+        {
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            context.Response.ContentType = "application/json";
+
+            await context.Response.WriteAsJsonAsync(new
+            {
+                message = ex.Message,
+                errors = ex.Errors
+            });
+
+            _logger.LogWarning(ex, ex.Message);
+        }
         catch (Exception ex)
         {
             _logger.LogError(ex, ex.Message);

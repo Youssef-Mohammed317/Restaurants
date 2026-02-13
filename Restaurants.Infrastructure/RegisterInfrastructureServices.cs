@@ -26,6 +26,8 @@ public static class RegisterInfrastructureServices
         services.AddScoped<IEntitySeeder, CategorySeeder>();
         services.AddScoped<IEntitySeeder, RestaurantSeeder>();
         services.AddScoped<IEntitySeeder, DishSeeder>();
+        services.AddScoped<IEntitySeeder, RoleSeeder>();
+        services.AddScoped<IEntitySeeder, UserSeeder>();
         services.AddScoped<IDbInitializer, DbInitializer>();
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();

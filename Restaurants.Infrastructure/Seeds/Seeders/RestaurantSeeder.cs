@@ -2,7 +2,7 @@
 using Restaurants.Domain.Entities;
 using Restaurants.Domain.ValueObjects;
 using Restaurants.Infrastructure.Persistance.Seeds.Abstractions;
-using Restaurants.Infrastructure.Persistance.Seeds.Seeders.Selectors;
+using Restaurants.Infrastructure.Seeds.Seeders.Helpers;
 
 namespace Restaurants.Infrastructure.Persistance.Seeds.Seeders;
 
