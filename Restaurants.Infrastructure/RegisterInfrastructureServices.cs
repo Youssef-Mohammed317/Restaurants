@@ -2,11 +2,12 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Restaurants.Domain.Repositories;
-using Restaurants.Infrastructure.Persistance.Contexts;
+using Restaurants.Infrastructure.Persistance;
 using Restaurants.Infrastructure.Persistance.Repositories;
 using Restaurants.Infrastructure.Persistance.Seeds;
 using Restaurants.Infrastructure.Persistance.Seeds.Abstractions;
 using Restaurants.Infrastructure.Persistance.Seeds.Seeders;
+
 
 namespace Restaurants.Infrastructure;
 
@@ -20,6 +21,7 @@ public static class RegisterInfrastructureServices
             options.UseSqlServer(configurations.GetConnectionString("RestaurntsDbConnection"))
             .EnableSensitiveDataLogging();
         });
+
 
         services.AddScoped<IEntitySeeder, CategorySeeder>();
         services.AddScoped<IEntitySeeder, RestaurantSeeder>();

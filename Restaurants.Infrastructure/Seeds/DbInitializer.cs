@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Restaurants.Infrastructure.Persistance.Contexts;
+using Restaurants.Infrastructure.Persistance;
 using Restaurants.Infrastructure.Persistance.Seeds.Seeders;
 using Restaurants.Infrastructure.Persistance.Seeds.Abstractions;
 

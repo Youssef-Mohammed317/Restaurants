@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Restaurants.Domain.Entities;
 using Restaurants.Domain.ValueObjects;
-using Restaurants.Infrastructure.Persistance.Contexts;
 using Restaurants.Infrastructure.Persistance.Seeds.Abstractions;
 using Restaurants.Infrastructure.Persistance.Seeds.Seeders.Selectors;
 

@@ -7,7 +7,7 @@ namespace Restaurants.IoC;
 
 public static class DependencyInjection
 {
-    public static void RegisterAllServices(this IServiceCollection services, IConfiguration configurations)
+    public static void RegisterIoCServices(this IServiceCollection services, IConfiguration configurations)
     {
         RegisterInfrastructureServices.AddInfrastructureServices(services, configurations);
         RegisterApplicationServices.AddApplicationServices(services);

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Query;
 using Restaurants.Domain.Entities.Base;
 using Restaurants.Domain.Repositories;
-using Restaurants.Infrastructure.Persistance.Contexts;
+using Restaurants.Infrastructure.Persistance;
 using System.Linq.Expressions;
 namespace Restaurants.Infrastructure.Persistance.Repositories;
 

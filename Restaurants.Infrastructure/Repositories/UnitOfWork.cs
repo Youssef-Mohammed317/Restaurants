@@ -1,5 +1,5 @@
 ﻿using Restaurants.Domain.Repositories;
-using Restaurants.Infrastructure.Persistance.Contexts;
+using Restaurants.Infrastructure.Persistance;
 namespace Restaurants.Infrastructure.Persistance.Repositories;
 
 public class UnitOfWork(RestaurantsDbContext _context) : IUnitOfWork

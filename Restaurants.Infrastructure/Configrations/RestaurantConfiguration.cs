@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Restaurants.Domain.Entities;
 
-namespace Restaurants.Infrastructure.Persistance.Configrations;
+namespace Restaurants.Infrastructure.Configrations;
 
 internal class RestaurantConfiguration : IEntityTypeConfiguration<Restaurant>
 {
