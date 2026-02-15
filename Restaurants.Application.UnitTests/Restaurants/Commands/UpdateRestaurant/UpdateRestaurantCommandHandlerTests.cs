@@ -105,7 +105,9 @@ namespace Restaurants.Application.Restaurants.Commands.CreateRestaurant.Tests
             var result = handler.Handle(command, CancellationToken.None);
             // assert
 
-            Assert.Throws<NotFoundException>(() => result.GetAwaiter().GetResult());
+            Assert.Throws<NotFoundException>(() => result.GetAwaiter().GetResult()).Message.Contains("Restaurant with Id => 1 was not found.");
+
+
 
         }
         [Fact()]
@@ -120,7 +122,7 @@ namespace Restaurants.Application.Restaurants.Commands.CreateRestaurant.Tests
             var result = handler.Handle(command, CancellationToken.None);
             // assert
 
-            Assert.Throws<ForbiddenException>(() => result.GetAwaiter().GetResult());
+            Assert.Throws<ForbiddenException>(() => result.GetAwaiter().GetResult()).Message.Contains("Forbidden exception");
 
         }
 

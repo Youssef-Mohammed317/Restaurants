@@ -1,0 +1,131 @@
+﻿using FluentValidation;
+using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization.Policy;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Moq;
+using Restaurants.API.Contollers;
+using Restaurants.APITests;
+using Restaurants.Application.Restaurants.Dtos;
+using Restaurants.Application.Restaurants.Queries.GetAllRestaurants;
+using Restaurants.Domain.Entities;
+using Restaurants.Domain.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Http.Json;
+using System.Text;
+using System.Threading.Tasks;
+using Xunit;
+using Assert = Xunit.Assert;
+
+namespace Restaurants.API.Contollers.Tests;
+
+public class RestaurantsControllerTests : IClassFixture<WebApplicationFactory<Program>>
+{
+    private readonly WebApplicationFactory<Program> factory;
+    private readonly Mock<IUnitOfWork> fakeUnitOfWork = new();
+
+    public RestaurantsControllerTests(WebApplicationFactory<Program> factory)
+    {
+        this.factory = factory.WithWebHostBuilder(builder =>
+        {
+            builder.ConfigureTestServices(services =>
+                {
+                    var validatorMock = new Mock<IValidator<GetAllRestaurantsQuery>>();
+
+                    validatorMock
+                        .Setup(v => v.ValidateAsync(It.IsAny<ValidationContext<GetAllRestaurantsQuery>>(),
+                                                    It.IsAny<CancellationToken>()))
+                        .ReturnsAsync(new ValidationResult(new[]
+                        {
+                        new ValidationFailure("PageSize", "PageSize must be greater than 0")
+                         }));
+
+                    services.RemoveAll<IValidator<GetAllRestaurantsQuery>>();
+                    services.AddSingleton<IValidator<GetAllRestaurantsQuery>>(_ => validatorMock.Object);
+
+                    services.AddSingleton<IPolicyEvaluator, FakePolicyEvaluator>();
+
+                    services.Replace(
+                    ServiceDescriptor.Scoped<IUnitOfWork>(_ => fakeUnitOfWork.Object)
+                );
+
+                });
+        });
+    }
+    [Fact()]
+    public async Task GetAll_ForValidRequest_Returns200Ok()
+    {
+        var pageSize = 10;
+        var pageNumber = 1;
+        // arrange
+        var client = factory.CreateClient();
+        fakeUnitOfWork.Setup(u => u.RestaurantRepository.GetAllAsync(null, null, null, pageSize, pageNumber, false)).ReturnsAsync([]);
+
+        // act
+        var result = await client.GetAsync($"/api/restaurants?PageNumber={pageNumber}&PageSize={pageSize}");
+        // assert
+        Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+
+    }
+    [Fact()]
+    public async Task GetAll_ForInValidRequest_Returns400BadRequest()
+    {
+        var pageSize = 10;
+        var pageNumber = 1;
+        // arrange
+        var client = factory.CreateClient();
+        fakeUnitOfWork.Setup(u => u.RestaurantRepository.GetAllAsync(null, null, null, pageSize, pageNumber, false))
+            .ReturnsAsync([]);
+
+        // act
+        var result = await client.GetAsync("/api/restaurants");
+        // assert
+        Assert.Equal(HttpStatusCode.BadRequest, result.StatusCode);
+
+    }
+
+    [Fact()]
+    public async Task GetById_ForValidRequest_Returns200Ok()
+    {
+        var id = 5;
+        // arrange
+        var client = factory.CreateClient();
+        var rest = new Restaurant
+        {
+            Id = id,
+            Name = "Test Restaurant",
+            Description = "A test restaurant",
+        };
+        fakeUnitOfWork.Setup(u => u.RestaurantRepository.GetByIdAsync(id)).ReturnsAsync(rest);
+        // act
+        var result = await client.GetAsync($"/api/restaurants/{id}");
+
+        var restaurantDto = await result.Content.ReadFromJsonAsync<RestaurantDto>();
+
+
+        // assert
+        Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+        Assert.NotNull(restaurantDto);
+        Assert.Equal(restaurantDto!.Id, id);
+        Assert.Equal(restaurantDto.Name, rest.Name);
+        Assert.Equal(restaurantDto.Description, rest.Description);
+    }
+    [Fact()]
+    public async Task GetById_ForInValidRequest_Returns404NotFound()
+    {
+        var id = 999;
+        // arrange
+        var client = factory.CreateClient();
+        fakeUnitOfWork.Setup(u => u.RestaurantRepository.GetByIdAsync(id)).ReturnsAsync((Restaurant?)null);
+
+        // act
+        var result = await client.GetAsync($"/api/restaurants/{id}");
+        // assert
+        Assert.Equal(HttpStatusCode.NotFound, result.StatusCode);
+    }
+
+}

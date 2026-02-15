@@ -32,12 +32,9 @@ public class MinimumRestaurantsRequirementHandler(ILogger<MinimumRestaurantsRequ
         }
         else
         {
-
             context.Fail();
         }
         return;
-
-
 
     }
 }
