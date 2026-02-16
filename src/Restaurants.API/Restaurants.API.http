@@ -1,6 +1,6 @@
 @Restaurants.API_HostAddress = http://localhost:5001
 # For more info on HTTP files go to https://aka.ms/vs/httpfile
-@bearerToken = CfDJ8Lxj95He-pdLmRiUX-TVBcEhSjDcYSV64tkPCL6X4wCcj7PQ-hLdd-Qrl543k7zXswiemIXHmQof5UkMqOSFMDLc-1KJPBoei7MZyB3LRT6Q2K2IQhd1Q-Y2nAIloYzq4lfPPEiFqdrHKu34spLuB2tJXlYvQztKuWLq3ogiqpLw6CgJFeHzwIQdt60vBdzIzoY9YUy5JZqIZYhtcWeW0qOx5Zv2ndFf0XWfGyY9QshMhkcZ4QnJZ5t7Ceqo0q61xUOEI6jPGMXIBTFTfhMonrx0xMiBXIzb7fglh-bOYo0Xol21gR369TtIrxtBh3b-4H-0EolZwk13JPJyJRzSy6UflxwKvvWeUX4Tmax0Q9P0ZcvbPOsIAtypte7N7GlhGTQnbEeFXaptV6I0bCQQs4TglRsktI8XT2Ia5HzVrLTlzEmQfn2o4GrxcMIwHzfr0ZOSFv-6ViKkrGfrqbs-httIBX4uVKvvqpQxV7A8-D5hUhy6ylE4PkGb2SXEPwo1bSl57MZyGi9j8gDhd1XPyS0WkXxBaj9oVLLSyl_0IdXP-YUaffkvdUknK3xkptcwf0BaD5_exNL_vLMibG-mYcAQU9AiGMrAEK4Ct5pQsSvzAIzTW4ySNRHE5hnw3Xh-85G23jHH5_OxQc0k3dnFTXaH8XFOoNs06l272uwOyl3oqYp82zEgbL-6m0Fvs_mY5PI8KU2dqNzcQ81HBxeVsmlLvZI1N93I5LMkawVuZ3P6U80_DvzAK0z9J0Xj7QSwd3nbCqHQf90lVZOsYnfqLvqhXtgzbLHS61Dt22CKWfDkL-6dIPUBGEHzMBoj_4zQ0_r8o_WWIvuYYTGkzU2m8aAaPyng1H0PWsHO8yoUOPmVOhiTK1GXuzsxP2C9FTDS_A
+@bearerToken = CfDJ8Lxj95He-pdLmRiUX-TVBcG7epU6LHIMToy3lIz4QRHFNf_Ea9DkMPq_f0g-FsasYOZ1EBhHS9H-Ns_YjwrCrgaYGRG6TMTp4RBc35iZqWQhTf_uwnLr4WUjwyf9OdbsVlO-NrJ0pXewF4xu8m8iKdJTElrXevxjER-MRLewbEA_tcyvAuRp1SCtcO1Xvw7b28D-F9IKqXmfycQ_UNmSWg8JmEy0BfEKiy_4k5ZQ2FmHSXtVDk_4t1QhHwEg-2JwwIqoOra5DcfH8evPx_iujWsf0_Uv35jHAA5p4U677qOa-aEZyd-LJkPfCrpjc3VARWlAOmmPAgV7x0PN8usHeiOjtb6EdZVGFvdE8rWdvH-ptmMgVeaqxavBiVZrDTjRR67jKBakmKiAfXmEf-_wvzxTyXuQ0uZQiqat_qHRpSzIbvtZaldkJdAxiBWyl9hgOnyisc-TmCGBQ9g8SU8sm75b8o6oONu5VeGB76I4v3SwxKmVzgLYqOiMyDHkSBqcbmFGjMaGwDB3yfyURnoSX5sbfWcdfyZFWiktoI_freq7ifXsjhWHMTkh3AjsQXorI1EqgRl45bxWDqLZdLzxOX41YwXr-EibUuXJUmRYvH5XlsZKtAT4qzkc7M41sjkd9dpYPFzODW8U-qhKRT_E2Aq4lZiO1qB-0EmMt7fA4gt29Y0PUr-ZV22zdW8blu150D7iQCtkQCoR3FrJYxIZEmthq1U2pmqeLxwHQJ-uRIOEBYWyqlPeEWNL8OhZtk1ZZnQCLyOpJmJ76arRp0MB-T2UfKT1iigaFSxdJwDYM47o
 
 ###
 
@@ -85,10 +85,10 @@ Content-Type: application/json
 ###
 ###
 
-POST {{Restaurants.API_HostAddress}}/api/identity/register
+POST {{Restaurants.API_HostAddress}}/api/identity/login
 Content-Type: application/json
 {
-  "email": "admin2@test.com",
+  "email": "admin@test.com",
   "password": "Test@123"
 }
 ###
@@ -97,7 +97,7 @@ Content-Type: application/json
 POST {{Restaurants.API_HostAddress}}/api/identity/login
 Content-Type: application/json
 {
-  "email": "admin2@test.com",
+  "email": "admin@test.com",
   "password": "Test@123"
 }
 ###
@@ -119,7 +119,7 @@ Authorization: Bearer {{bearerToken}}
 Content-Type: application/json
 
 {
-  "userEmail": "admin2@test.com",
+  "userEmail": "admin@test.com",
   "roleName": "Admin"
 }
 
