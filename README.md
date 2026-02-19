@@ -1,4 +1,4 @@
-Udemy 6 th Prject
+Udemy 6 th Project https://www.udemy.com/course/aspnet-core-web-api-clean-architecture-azure/
 
 # Restaurants API (Clean Architecture + CQRS + EF Core + Azure)
 
