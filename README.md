@@ -8,6 +8,12 @@
 
 ---
 
+## 📸 Swagger Preview
+
+![Swagger Screenshot](./docs/swagger.png)
+
+---
+
 ## 🍽️ Overview
 
 A layered **ASP.NET Core Web API** built with **Clean Architecture**, **CQRS (MediatR)**, **EF Core**, **FluentValidation**, **AutoMapper**, and a complete set of **unit/integration tests**.
